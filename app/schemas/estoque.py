@@ -8,6 +8,7 @@ class SaldoArmazemOut(BaseModel):
     armazem_nome: str
     quantidade: int
 
+
 class EstoqueProdutoOut(BaseModel):
     produto_id: int
     codigo: str
@@ -17,6 +18,7 @@ class EstoqueProdutoOut(BaseModel):
     abaixo_do_minimo: bool
     saldos: list[SaldoArmazemOut]
 
+
 class EstoqueResumoOut(BaseModel):
     produto_id: int
     codigo: str
@@ -25,11 +27,13 @@ class EstoqueResumoOut(BaseModel):
     estoque_total: int
     falta_para_minimo: int
 
-class SaldoProdutoArmazemOut(BaseModel):
+
+class SaldoProdutoNoArmazemOut(BaseModel):
     produto_id: int
     codigo: str
     nome: str
     quantidade: int
+
 
 class MovimentacaoPeriodoOut(BaseModel):
     produto_id: int
@@ -40,6 +44,7 @@ class MovimentacaoPeriodoOut(BaseModel):
     total_transferido: int
     saldo_do_periodo: int
 
+
 class SemMovimentacaoOut(BaseModel):
     produto_id: int
     codigo: str
@@ -47,9 +52,10 @@ class SemMovimentacaoOut(BaseModel):
     estoque_total: int
     ultima_movimentacao: datetime | None
 
+
 class ComparacaoSaldosOut(BaseModel):
     produto_id: int
     codigo: str
     nome: str
     total: int
-    saldos: list(SaldoArmazemOut)
+    saldos: list[SaldoArmazemOut]

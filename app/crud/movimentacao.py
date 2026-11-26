@@ -6,12 +6,12 @@ from sqlalchemy.orm import joinedload
 from app.crud.base import obter_ou_404, paginar
 from app.models import Movimentacao
 
-
 OPCOES_MOVIMENTACAO = (
     joinedload(Movimentacao.produto),
-    joinedload(Movimentacao.armazem_origem)
+    joinedload(Movimentacao.armazem_origem),
     joinedload(Movimentacao.armazem_destino),
 )
+
 
 def listar(
     db,
@@ -20,11 +20,11 @@ def listar(
     produto_id: int | None = None,
     armazem_id: int | None = None,
     data_inicio: datetime | None = None,
-    data_fim: datetime | None = None
+    data_fim: datetime | None = None,
 ):
     stmt = select(Movimentacao)
 
-    if tipo: 
+    if tipo:
         stmt = stmt.where(Movimentacao.tipo == tipo)
     if produto_id is not None:
         stmt = stmt.where(Movimentacao.produto_id == produto_id)
@@ -34,7 +34,7 @@ def listar(
                 Movimentacao.armazem_origem_id == armazem_id,
                 Movimentacao.armazem_destino_id == armazem_id,
             )
-        )    
+        )
     if data_inicio is not None:
         stmt = stmt.where(Movimentacao.data_hora >= data_inicio)
     if data_fim is not None:
@@ -47,7 +47,7 @@ def listar(
     )
 
 
-def obter(db, movimentacao_id: id) -> Movimentacao:
+def obter(db, movimentacao_id: int) -> Movimentacao:
     obter_ou_404(db, Movimentacao, movimentacao_id, "Movimentação")
     return db.scalar(
         select(Movimentacao)

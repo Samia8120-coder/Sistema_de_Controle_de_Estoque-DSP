@@ -36,3 +36,5 @@ class Movimentacao(Base):
     armazem_origem: Mapped["Armazem | None"] = relationship(foreign_keys=[armazem_origem_id])
     armazem_destino: Mapped["Armazem | None"] = relationship(foreign_keys=[armazem_destino_id])
     pedido: Mapped["PedidoCompra | None"] = relationship(back_populates="movimentacoes")
+
+

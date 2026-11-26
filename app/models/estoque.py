@@ -14,3 +14,5 @@ class EstoqueArmazem(Base):
 
     produto: Mapped["Produto"] = relationship(back_populates="estoques")
     armazem: Mapped["Armazem"] = relationship(back_populates="estoques")
+
+    

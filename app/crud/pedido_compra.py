@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import select
-from sqlalchemy.orm import joinedload, selectload
+from sqlalchemy.orm import joinedload, selectinload
 
 from app.crud.base import paginar
 from app.errors import NaoEncontradoError
@@ -9,8 +9,9 @@ from app.models import ItemPedidoCompra, PedidoCompra
 
 OPCOES_PEDIDO = (
     joinedload(PedidoCompra.fornecedor),
-    selectload(PedidoCompra.itens).joinedload(ItemPedidoCompra.produto),
+    selectinload(PedidoCompra.itens).joinedload(ItemPedidoCompra.produto),
 )
+
 
 def carregar(db, pedido_id: int) -> PedidoCompra:
     pedido = db.scalar(
@@ -19,6 +20,7 @@ def carregar(db, pedido_id: int) -> PedidoCompra:
     if pedido is None:
         raise NaoEncontradoError(f"Pedido de compra {pedido_id} não encontrado(a).")
     return pedido
+
 
 def listar(
     db,
